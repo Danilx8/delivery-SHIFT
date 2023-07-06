@@ -2,6 +2,7 @@ package ru.cft.shift.intensive.template.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 public record ItemDto(@NotEmpty(message = "{validation.delivery.owner.not-empty}") String owner,
             @NotEmpty(message = "{validation.delivery.name.not-empty}") String name,
