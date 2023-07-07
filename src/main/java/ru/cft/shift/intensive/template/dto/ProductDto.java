@@ -13,11 +13,22 @@ public class ProductDto {
     private Set<SpecificationsDto> specifications = new HashSet<>();
     private Set<CompositionDto> composition = new HashSet<>();
     @Size(min = 1)
+    @NotEmpty(message = "{validation.store.products.id.not-empty}")
     private String id;
     @Size(max = 500)
+    @NotEmpty
     private String description;
     @NotEmpty(message = "{validation.store.products.cost.not-empty}")
     private String cost;
+
+    public ProductDto(String name, Set<SpecificationsDto> specifications, Set<CompositionDto> composition, String id, String description, String cost) {
+        this.name = name;
+        this.specifications = specifications;
+        this.composition = composition;
+        this.id = id;
+        this.description = description;
+        this.cost = cost;
+    }
 
     public ProductDto() {}
 
@@ -27,17 +38,18 @@ public class ProductDto {
         this.description = description;
     }
 
-    public ProductDto(String name, Set<CompositionDto> composition, String description) {
-        this.name = name;
-        this.composition = composition;
-        this.description = description;
-    }
 
     public ProductDto(String name, String id, String description, String cost) {
         this.name = name;
         this.id = id;
         this.description = description;
         this.cost = cost;
+    }
+
+    public ProductDto(String name, Set<SpecificationsDto> specifications, String description) {
+        this.name = name;
+        this.specifications = specifications;
+        this.description = description;
     }
 
     public String getName()  {
