@@ -1,13 +1,13 @@
 package ru.cft.shift.intensive.template.dto;
 
-public enum AddressDto {
+public enum Address {
     DZERZHYNSKY,
     ZHELEZNODOROZHNY,
     ZAELTSOVSKY,
     KALININSKY,
     KIROVSKY,
     LENINSKY,
-    ORTYABRSKY,
+    OKTYABRSKY,
     PERVOMAISKY,
     SOVETSKY,
     TSENTRALNY

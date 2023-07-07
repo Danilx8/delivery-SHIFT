@@ -15,7 +15,7 @@ import java.util.List;
 public class UsersServiceImpl implements UsersService {
   private final UsersRepository usersRepository;
 
-  @Autowired
+  // @Autowired
   public UsersServiceImpl(UsersRepository usersRepository) {
     this.usersRepository = usersRepository;
   }
