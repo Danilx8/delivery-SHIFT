@@ -3,14 +3,10 @@ package ru.cft.shift.intensive.template.dto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
-import javax.swing.*;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CartDto {
-    @NotEmpty(message = "{validation.store.products.cost.not-empty}")
-    @Size(max = 10)
-    private String total_cost;
+public class DeliveryDto {
     @NotEmpty(message = "{validation.store.products.name.not-empty}")
     @Size(min = 3, max = 100)
     private String name;
@@ -20,31 +16,32 @@ public class CartDto {
     private String id;
     @Size(max = 500)
     private String description;
+    @NotEmpty(message = "{validation.store.products.cost.not-empty}")
+    private String cost;
+    private String delivery_time;
 
-    public CartDto() {}
+    public DeliveryDto() {}
 
-    public CartDto(String total_cost, String name, String description, Set<CompositionDto> composition, String id) {
-        this.total_cost = total_cost;
-        this.name = name;
-        this.composition = composition;
-        this.id = id;
-        this.description = description;
+    public DeliveryDto(String delivery_time) {
+        this.delivery_time = delivery_time;
     }
 
-    public CartDto(String total_cost, String name, Set<SpecificationsDto> specifications, String id, String description) {
-        this.total_cost = total_cost;
+    public DeliveryDto(String id, String name, Set<SpecificationsDto> specifications, String description, String cost, String delivery_time) {
         this.name = name;
         this.specifications = specifications;
         this.id = id;
         this.description = description;
+        this.cost = cost;
+        this.delivery_time = delivery_time;
     }
 
-    public String getTotal_cost() {
-        return total_cost;
-    }
-
-    public void setTotal_cost(String total_cost) {
-        this.total_cost = total_cost;
+    public DeliveryDto(String name, Set<CompositionDto> composition, String id, String description, String cost, String delivery_time) {
+        this.name = name;
+        this.composition = composition;
+        this.id = id;
+        this.description = description;
+        this.cost = cost;
+        this.delivery_time = delivery_time;
     }
 
     public String getName() {
@@ -85,5 +82,21 @@ public class CartDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCost() {
+        return cost;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
+    }
+
+    public String getDelivery_time() {
+        return delivery_time;
+    }
+
+    public void setDelivery_time(String delivery_time) {
+        this.delivery_time = delivery_time;
     }
 }
