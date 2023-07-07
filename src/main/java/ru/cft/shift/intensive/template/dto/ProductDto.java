@@ -40,7 +40,7 @@ public class ProductDto {
         this.cost = cost;
     }
 
-    public String getName() {
+    public String getName()  {
         return name;
     }
 
