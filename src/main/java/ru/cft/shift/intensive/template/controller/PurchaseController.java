@@ -20,7 +20,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class PurchaseController {
     
     @PostMapping
-    public ResponseEntity<List<String>> PurchaseCartItems(@RequestBody @Valid ItemDto item) {
+    public ResponseEntity<List<String>> PurchaseCartItems(@RequestBody @Valid ItemDto item) { //поменять на пут
         return ResponseEntity.ok(Mocks.CreatedPurchasesIds());
     }
 
