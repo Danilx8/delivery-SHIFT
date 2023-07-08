@@ -4,24 +4,24 @@ import java.util.Arrays;
 import java.util.List;
 
 import ru.cft.shift.intensive.template.dto.Address;
-import ru.cft.shift.intensive.template.dto.ItemDto;
+import ru.cft.shift.intensive.template.dto.ProductDto;
 import ru.cft.shift.intensive.template.dto.PurchaseDto;
 import ru.cft.shift.intensive.template.dto.PurchaseState;
 
 public class Mocks {
     private Mocks() {}
 
-    public static String Owner(ItemDto item) {
-        return item.shopName();
+    public static String Owner(ProductDto product) {
+        return product.shopName();
     }
 
-    public static ItemDto ItemByName(String name) {
-        return new ItemDto("1", "Суп Харчо", "Твиани", Address.OKTYABRSKY,  200.0F, 300.0F, "Традиционное грузинское блюдо с бараниной и различными специями");
+    public static ProductDto ProductByName(String name) {
+        return new ProductDto("1", "Суп Харчо", "Твиани", Address.OKTYABRSKY,  200.0F, 300.0F, "Традиционное грузинское блюдо с бараниной и различными специями");
     }
 
-    public static List<ItemDto> AllItems() {
+    public static List<ProductDto> AllProducts() {
         return Arrays.asList(
-            new ItemDto("2",  "Ножки куриные", "KFC", Address.PERVOMAISKY, 250.0F, 500.0F, "Куриные ножки в хрустящей оболочке в фирменном ведре")
+            new ProductDto("2",  "Ножки куриные", "KFC", Address.PERVOMAISKY, 250.0F, 500.0F, "Куриные ножки в хрустящей оболочке в фирменном ведре")
         );
     } 
 
