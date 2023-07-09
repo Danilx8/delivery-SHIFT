@@ -38,7 +38,7 @@ public class PurchaseController {
         content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
     })
     @PutMapping
-    public ResponseEntity<Void> PurchaseCartproducts(@RequestBody @Valid ProductDto product) { //создание позиции на покупку
+    public ResponseEntity<Void> PurchaseCartProducts(@RequestBody @Valid List<ProductDto> product) { //создание позиции на покупку
         return ResponseEntity.ok().build();
     }
 
@@ -68,7 +68,7 @@ public class PurchaseController {
         @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
     })
     @DeleteMapping("cart/{id}") 
-    public ResponseEntity<Void> Deleteproduct(@PathVariable String id) { //удаление товара из каталога
+    public ResponseEntity<Void> DeleteProduct(@PathVariable String id) { //удаление товара из каталога
         return ResponseEntity.ok().build();
     }
 

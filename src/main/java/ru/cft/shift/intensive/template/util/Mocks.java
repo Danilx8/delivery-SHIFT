@@ -16,12 +16,12 @@ public class Mocks {
     }
 
     public static ProductDto ProductByName(String name) {
-        return new ProductDto("1", "Суп Харчо", "Твиани", Address.OKTYABRSKY,  200.0F, 300.0F, "Традиционное грузинское блюдо с бараниной и различными специями");
+        return new ProductDto("1", "Суп Харчо", "Твиани", "OKTYABRSKY",  200.0F, 300.0F, "Традиционное грузинское блюдо с бараниной и различными специями");
     }
 
     public static List<ProductDto> AllProducts() {
         return Arrays.asList(
-            new ProductDto("2",  "Ножки куриные", "KFC", Address.PERVOMAISKY, 250.0F, 500.0F, "Куриные ножки в хрустящей оболочке в фирменном ведре")
+            new ProductDto("2",  "Ножки куриные", "KFC", "PERVOMAISKY", 250.0F, 500.0F, "Куриные ножки в хрустящей оболочке в фирменном ведре")
         );
     } 
 
@@ -35,7 +35,7 @@ public class Mocks {
 
     public static List<PurchaseDto> AllPurchases() {
         return Arrays.asList(
-            new PurchaseDto("1", Address.KIROVSKY, PurchaseState.VACANT, 120000.0F, "Аура", "12", "Киа Рио", 1, 1200000.0F, Address.ZAELTSOVSKY, "Подвезите к подъезду")
+            new PurchaseDto("1", "KIROVSKY", "VACANT", 120000.0F, "Аура", "12", "Киа Рио", 1, 1200000.0F, "ZAELTSOVSKY", "Подвезите к подъезду")
         );
     }
 

@@ -52,7 +52,7 @@ public class ProductController {
         @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
     })
     @GetMapping("{name}")
-    public ResponseEntity<ProductDto> productByName(@PathVariable String name) { //поиск товара по имени
+    public ResponseEntity<ProductDto> ProductByName(@PathVariable String name) { //поиск товара по имени
         return ResponseEntity.ok(Mocks.ProductByName(name));
     }
 }
