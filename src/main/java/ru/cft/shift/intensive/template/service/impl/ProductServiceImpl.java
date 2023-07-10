@@ -2,11 +2,14 @@ package ru.cft.shift.intensive.template.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import ru.cft.shift.intensive.template.dto.ProductDto;
 import ru.cft.shift.intensive.template.repository.ProductsRepository;
 import ru.cft.shift.intensive.template.repository.entity.Products;
 import ru.cft.shift.intensive.template.service.ProductService;
 
+@Service
 public class ProductServiceImpl implements ProductService {
     private final ProductsRepository repository;
 
