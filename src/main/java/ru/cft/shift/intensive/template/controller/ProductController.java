@@ -18,6 +18,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import ru.cft.shift.intensive.template.dto.ProductDto;
 import ru.cft.shift.intensive.template.dto.PurchaseDto;
+import ru.cft.shift.intensive.template.service.impl.ProductServiceImpl;
 import ru.cft.shift.intensive.template.util.Mocks;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -32,7 +33,12 @@ import org.springframework.validation.annotation.Validated;
 @RequestMapping(value = "/store/", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "api.product.tag.name", description = "api.product.tag.description")
 public class ProductController {
-    
+    private final ProductServiceImpl service;
+
+    public ProductController(ProductServiceImpl service) {
+        this.service = service;
+    }
+
     @Operation(summary = "api.product.products.summary")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "api.product.products.api-responses.200.description"),
@@ -41,7 +47,12 @@ public class ProductController {
     })
     @GetMapping
     public ResponseEntity<List<ProductDto>> AllProducts() { //все товары в каталоге
-        return ResponseEntity.ok(Mocks.AllProducts());
+        List<ProductDto> catalogue = service.all();
+        if (catalogue.isEmpty()) {
+            // throw new RuntimeException("Каталог пуст, милорд");
+        }
+
+        return ResponseEntity.ok(catalogue);
     }
 
     @Operation(summary = "api.product.get-by-name.summary")
@@ -53,6 +64,11 @@ public class ProductController {
     })
     @GetMapping("{name}")
     public ResponseEntity<ProductDto> ProductByName(@PathVariable String name) { //поиск товара по имени
-        return ResponseEntity.ok(Mocks.ProductByName(name));
+        ProductDto foundProduct = service.findByName(name);
+        if (foundProduct == null) {
+            // throw new RuntimeException("Продукт не найден");
+        }
+
+        return ResponseEntity.ok(foundProduct);
     }
 }
