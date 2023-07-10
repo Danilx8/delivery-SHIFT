@@ -2,11 +2,15 @@ package ru.cft.shift.intensive.template.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import ru.cft.shift.intensive.template.dto.ProductDto;
 import ru.cft.shift.intensive.template.dto.PurchaseDto;
 import ru.cft.shift.intensive.template.repository.PurchasesRepository;
+import ru.cft.shift.intensive.template.repository.entity.Purchases;
 import ru.cft.shift.intensive.template.service.PurchaseService;
 
+@Service
 public class PurchaseServiceImpl implements PurchaseService {
     
     private final PurchasesRepository repository;
@@ -14,6 +18,12 @@ public class PurchaseServiceImpl implements PurchaseService {
     public PurchaseServiceImpl(PurchasesRepository repository) {
         this.repository = repository;
     }
+
+    // private Purchases ProductToPurchaseConverter(ProductDto product) {
+    //     String purchaseId = ()
+
+    //     return new Purchases();
+    // }
 
     // @Override
     // public Void AddToCart(ProductDto product) {
