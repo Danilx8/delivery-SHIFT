@@ -12,7 +12,7 @@ public class Mocks {
     private Mocks() {}
 
     public static String Owner(ProductDto product) {
-        return product.shopName();
+        return product.getShopName();
     }
 
     public static ProductDto ProductByName(String name) {
