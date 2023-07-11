@@ -13,7 +13,7 @@ public class PurchaseDto {
     @NotEmpty private String itemId;
     @NotEmpty private String itemName;
     @NotEmpty @Min(value = 1) private Integer quantity;
-    @NotEmpty @Min(value = 1) private Float cost;
+    @NotEmpty @Min(value = 1) private Float price;
     @NotEmpty private Address customerAddress;
     @NotEmpty @Max(value = 250) private String description;
 
@@ -55,7 +55,7 @@ public class PurchaseDto {
         this.itemId = itemId;
         this.itemName = itemName;
         this.quantity = quantity;
-        this.cost = cost;
+        this.price = cost;
         this.description = description;
     }
 
@@ -123,12 +123,12 @@ public class PurchaseDto {
         this.quantity = quantity;
     }
 
-    public Float getCost() {
-        return cost;
+    public Float getPrice() {
+        return price;
     }
 
-    public void setCost(Float cost) {
-        this.cost = cost;
+    public void setPrice(Float cost) {
+        this.price = cost;
     }
 
     public Address getCustomerAddress() {

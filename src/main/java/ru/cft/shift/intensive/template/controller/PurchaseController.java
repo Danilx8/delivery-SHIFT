@@ -6,14 +6,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import ru.cft.shift.intensive.template.dto.OrderDto;
 import ru.cft.shift.intensive.template.dto.ProductDto;
 import ru.cft.shift.intensive.template.dto.PurchaseDto;
+import ru.cft.shift.intensive.template.service.PurchaseService;
+import ru.cft.shift.intensive.template.service.impl.PurchaseServiceImpl;
 import ru.cft.shift.intensive.template.util.Mocks;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -31,6 +35,12 @@ import org.springframework.validation.annotation.Validated;
 @Tag(name = "api.purchase.tag.name", description = "api.purchase.tag.description")
 public class PurchaseController {
     
+    private final PurchaseServiceImpl service;
+    
+    public PurchaseController(PurchaseServiceImpl service) {
+        this.service = service;
+    }
+
     @Operation(summary = "api.purchase.create-request.summary")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "api.purchase.create-request.api-responses.200.description"),
@@ -38,7 +48,8 @@ public class PurchaseController {
         content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
     })
     @PutMapping
-    public ResponseEntity<Void> PurchaseCartProducts(@RequestBody @Valid List<ProductDto> product) { //создание позиции на покупку
+    public ResponseEntity<Void> PurchaseCartProducts(@RequestBody @Valid OrderDto order) { //создание позиции на покупку
+        service.PurchaseCartProducts(order);    
         return ResponseEntity.ok().build();
     }
 
