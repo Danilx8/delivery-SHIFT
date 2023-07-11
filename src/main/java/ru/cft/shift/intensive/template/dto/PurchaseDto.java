@@ -58,4 +58,94 @@ public class PurchaseDto {
         this.cost = cost;
         this.description = description;
     }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public Address getShopAddress() {
+        return shopAddress;
+    }
+
+    public void setShopAddress(Address shopAddress) {
+        this.shopAddress = shopAddress;
+    }
+
+    public PurchaseState getState() {
+        return state;
+    }
+
+    public void setState(PurchaseState state) {
+        this.state = state;
+    }
+
+    public Float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Float weight) {
+        this.weight = weight;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Float getCost() {
+        return cost;
+    }
+
+    public void setCost(Float cost) {
+        this.cost = cost;
+    }
+
+    public Address getCustomerAddress() {
+        return customerAddress;
+    }
+
+    public void setCustomerAddress(Address customerAddress) {
+        this.customerAddress = customerAddress;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    
 }

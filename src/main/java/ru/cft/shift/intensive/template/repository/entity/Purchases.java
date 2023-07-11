@@ -12,7 +12,7 @@ public record Purchases(
     String productId,
     String productName,
     Integer quantity,
-    String adress,
+    String address,
     Float price,
     String description
 ) {

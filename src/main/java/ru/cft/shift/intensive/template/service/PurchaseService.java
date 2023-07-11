@@ -2,19 +2,20 @@ package ru.cft.shift.intensive.template.service;
 
 import java.util.List;
 
+import ru.cft.shift.intensive.template.dto.Address;
 import ru.cft.shift.intensive.template.dto.ProductDto;
 import ru.cft.shift.intensive.template.dto.PurchaseDto;
 
 public interface PurchaseService {
-    Void Create(List<ProductDto> products);
+    Void PurchaseCartProducts(List<ProductDto> products, Address destination, Integer quantity, Address address);
     
-    List<PurchaseDto> AllPurchases(String currentSessionId);
+    List<PurchaseDto> ListAllPurchases();
 
-    Void AddToCart(ProductDto product);
+    Void AddToCart(ProductDto product, Address destination, Integer quantity, Address address);
 
-    Void DeleteFromCart(String currentSessionId, String productId);
+    Void DeleteFromCart(String productId);
 
-    Float CalculateTotalCost(String currentSessionId);
+    Float CalculateTotalCost();
 
-    Float CalculateDeliveryTime(String currentSessionId);
+    Float CalculateDeliveryTime();
 }
