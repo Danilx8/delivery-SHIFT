@@ -26,6 +26,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto findByName(String name) {
         Products product = repository.findByName(name);
+        if (product == null) throw new RuntimeException();
         return new ProductDto(product.id().toString(), product.name(), product.shop(), product.address(), product.price(), product.weight(), product.description());
     }
 }

@@ -3,7 +3,6 @@ package ru.cft.shift.intensive.template.service.impl;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
 import ru.cft.shift.intensive.template.dto.Address;
@@ -33,7 +32,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public Void PurchaseCartProducts(OrderDto order) {
+    public List<String> PurchaseCartProducts(OrderDto order) {
         List<PurchaseDto> purchases = order.purchases();
         String destination = order.destination();
         purchases.forEach(purchase -> {
@@ -41,15 +40,15 @@ public class PurchaseServiceImpl implements PurchaseService {
             UUID user = UUID.randomUUID(); //temporary
             repository.save(new Purchases(new PurchasesPrimaryKeyClass(id, purchase.getItemId()), destination, "IN_PROGRESS", purchase.getWeight(), purchase.getShopName(), user, purchase.getItemName(), purchase.getQuantity(), purchase.getShopAddress().toString(), purchase.getPrice(), purchase.getDescription()));
         });
-        return null;
+        return purchases.stream().map(purchase -> purchase.getItemName()).toList();
     }
 
     @Override
     public List<PurchaseDto> ListAllPurchases() {
-        // return repository.findAllBySession("null").stream().map(
-        //     purchase -> new PurchaseDto(purchase.keyClass().getId(), purchase.address(), purchase.state().toString(), purchase.weight(), purchase.shop(), purchase.keyClass().getProductId(), purchase.productName(), purchase.quantity(), purchase.price(), purchase.destination(), purchase.description())
-        // ).toList();
-        return null;
+        UUID user = UUID.randomUUID(); //temporary
+        return repository.findAllByUser(user).stream().map(
+            purchase -> new PurchaseDto(purchase.keyClass().getId().toString(), purchase.address(), purchase.state().toString(), purchase.weight(), purchase.shop(), purchase.keyClass().getProductId(), purchase.productName(), purchase.quantity(), purchase.price(), purchase.destination(), purchase.description())
+        ).toList();
     }
 
     @Override
@@ -59,8 +58,11 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public Void DeleteFromCart(PurchasesPrimaryKeyClass purchaseId) {
-        repository.delete(repository.findById(purchaseId).orElseThrow());
+    public Void DeleteFromCart(String productId) {
+        UUID userId = UUID.randomUUID(); //temporary
+        Purchases purchase = repository.findByUserAndProductIdPurchases(userId, productId); 
+        if(purchase == null) throw new RuntimeException();
+        repository.delete(purchase);
         return null;
     }
 
@@ -80,10 +82,11 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public Void RemovePurchase(PurchasesPrimaryKeyClass purchaseId) {
-        Purchases purchase = repository.findById(purchaseId).orElseThrow();
+    public Void RemovePurchase(String productId) {
         UUID user = UUID.randomUUID(); //temporary
-        if(purchase.quantity() == 1) {
+        Purchases purchase = repository.findByUserAndProductIdPurchases(user, productId);
+        if (purchase == null) throw new RuntimeException(); 
+        if (purchase.quantity() == 1) {
             repository.delete(purchase);
         } else {
             Purchases updatedPurchase = new Purchases(new PurchasesPrimaryKeyClass(purchase.keyClass().getId(), purchase.keyClass().getProductId()), purchase.destination(), purchase.state(), purchase.weight(), purchase.shop(), user, purchase.productName(), purchase.quantity() - 1, purchase.address(), purchase.price(), purchase.description());
@@ -94,14 +97,13 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public Void AddPurchase(PurchasesPrimaryKeyClass purchaseId) {
-        Purchases purchase = repository.findById(purchaseId).orElseThrow();
+    public Void AddPurchase(String productId) {
         UUID user = UUID.randomUUID(); //temporary
+        Purchases purchase = repository.findByUserAndProductIdPurchases(user, productId);
+        if (purchase == null) throw new RuntimeException();
         Purchases updatedPurchase = new Purchases(new PurchasesPrimaryKeyClass(purchase.keyClass().getId(), purchase.keyClass().getProductId()), purchase.destination(), purchase.state(), purchase.weight(), purchase.shop(), user, purchase.productName(), purchase.quantity() + 1, purchase.address(), purchase.price(), purchase.description());
         repository.save(updatedPurchase);
         
         return null;
     }
-
-    
 }
