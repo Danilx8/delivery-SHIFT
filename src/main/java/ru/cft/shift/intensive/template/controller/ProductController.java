@@ -47,12 +47,7 @@ public class ProductController {
     })
     @GetMapping
     public ResponseEntity<List<ProductDto>> AllProducts() { //все товары в каталоге
-        List<ProductDto> catalogue = service.all();
-        if (catalogue.isEmpty()) {
-            // throw new RuntimeException("Каталог пуст, милорд");
-        }
-
-        return ResponseEntity.ok(catalogue);
+        return ResponseEntity.ok(service.all());
     }
 
     @Operation(summary = "api.product.get-by-name.summary")
@@ -64,11 +59,6 @@ public class ProductController {
     })
     @GetMapping("{name}")
     public ResponseEntity<ProductDto> ProductByName(@PathVariable String name) { //поиск товара по имени
-        ProductDto foundProduct = service.findByName(name);
-        if (foundProduct == null) {
-            // throw new RuntimeException("Продукт не найден");
-        }
-
-        return ResponseEntity.ok(foundProduct);
+        return ResponseEntity.ok(service.findByName(name));
     }
 }
