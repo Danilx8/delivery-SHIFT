@@ -22,5 +22,5 @@ public interface PurchaseService {
 
     Float CalculateTotalCost();
 
-    Float CalculateDeliveryTime();
+    Integer CalculateDeliveryTime();
 }

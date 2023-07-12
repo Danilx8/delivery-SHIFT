@@ -1,5 +1,7 @@
 package ru.cft.shift.intensive.template.repository.entity;
 
+import java.util.UUID;
+
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
@@ -8,15 +10,17 @@ import org.springframework.data.cassandra.core.mapping.Table;
 public record Purchases(
     @PrimaryKey()
     PurchasesPrimaryKeyClass keyClass,
-    @Column("destination_point")
+    @Column
     String destination,
     @Column("condition")
     String state,
-    @Column("weight_order")
-    Float weight,
-    @Column("name_shop")
+    @Column
+    Integer weight,
+    @Column("shop_name")
     String shop,
-    @Column("name_product")
+    @Column("user_id")
+    UUID user,
+    @Column("product_name")
     String productName,
     @Column
     Integer quantity,

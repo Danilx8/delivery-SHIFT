@@ -9,10 +9,9 @@ import ru.cft.shift.intensive.template.repository.entity.PurchasesPrimaryKeyClas
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public interface PurchasesRepository extends CassandraRepository<Purchases, ru.cft.shift.intensive.template.repository.entity.PurchasesPrimaryKeyClass>{
-    // List<Purchases> findAllBySession(String id);
-
-    // Collection<Purchases> findBySession(String randomAlphabetic);
+    List<Purchases> findAllByUser(UUID userId);
 }
