@@ -1,11 +1,11 @@
 spring:
   cassandra:
-    keyspace-name: template
+    keyspace-name: delivery_ks
     username: cassandra
     password: cassandra
-#    schema-action: create_if_not_exists
+    #schema-action: create_if_not_exists
     local-datacenter: dc1
-    contact-points: 127.0.0.1:9042
+    contact-points: localhost:9042
 springdoc:
   use-management-port: true
 
