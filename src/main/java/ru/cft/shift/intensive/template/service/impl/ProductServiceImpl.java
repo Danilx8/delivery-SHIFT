@@ -28,4 +28,10 @@ public class ProductServiceImpl implements ProductService {
         Products product = repository.findByName(name);
         return new ProductDto(product.id(), product.name(), product.shop(), product.address(), product.price(), product.weight(), product.description());
     }
+
+    @Override
+    public List<ProductDto> add(String id, String name, String shopName, String address, Float price, Float weight, String description) {
+        return null;
+    }
+
 }

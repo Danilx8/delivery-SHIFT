@@ -1,5 +1,6 @@
 package ru.cft.shift.intensive.template.service;
 
+import ru.cft.shift.intensive.template.dto.RegistrationUserDto;
 import ru.cft.shift.intensive.template.dto.UserDto;
 import ru.cft.shift.intensive.template.dto.UsernameDto;
 
@@ -11,6 +12,8 @@ public interface UsersService {
   UserDto findByUsername(String username);
 
   UsernameDto create(UserDto user);
+
+  UsernameDto registrationUser(RegistrationUserDto user);
 
   void delete(String username);
 }

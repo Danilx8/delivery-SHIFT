@@ -8,4 +8,6 @@ public interface ProductService {
     List<ProductDto> all();
 
     ProductDto findByName(String name);
+
+    List<ProductDto> add(String id, String name, String shopName, String address, Float price, Float weight, String description);
 }

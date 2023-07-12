@@ -12,6 +12,8 @@ public class Users {
   @PrimaryKey
   private String username;
   @Column
+  private String login;
+  @Column
   private String password;
   @Column
   private Set<String> roles = new HashSet<>();
@@ -19,10 +21,17 @@ public class Users {
   public Users() {
   }
 
-  public Users(String username, String password, Set<String> roles) {
+  public Users(String username, String login, String password, Set<String> roles) {
     this.username = username;
+    this.login = login;
     this.password = password;
     this.roles = roles;
+  }
+
+  public Users(String username, String login, String password) {
+    this.username = username;
+    this.login = login;
+    this.password = password;
   }
 
   public String getUsername() {
@@ -43,6 +52,14 @@ public class Users {
 
   public Set<String> getRoles() {
     return roles;
+  }
+
+  public String getLogin() {
+    return login;
+  }
+
+  public void setLogin(String login) {
+    this.login = login;
   }
 
   public void setRoles(Set<String> roles) {

@@ -1,7 +1,12 @@
 package ru.cft.shift.intensive.template.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.cft.shift.intensive.template.dto.RegistrationUserDto;
 import ru.cft.shift.intensive.template.dto.UserDto;
 import ru.cft.shift.intensive.template.dto.UsernameDto;
 import ru.cft.shift.intensive.template.exception.UsernameNotFoundException;
@@ -12,12 +17,14 @@ import ru.cft.shift.intensive.template.service.UsersService;
 import java.util.List;
 
 @Service
-public class UsersServiceImpl implements UsersService {
+public class UsersServiceImpl implements UsersService, UserDetailsService {
   private final UsersRepository usersRepository;
+  private final PasswordEncoder passwordEncoder;
 
-  // @Autowired
-  public UsersServiceImpl(UsersRepository usersRepository) {
+  @Autowired
+  public UsersServiceImpl(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
     this.usersRepository = usersRepository;
+    this.passwordEncoder = passwordEncoder;
   }
 
   @Override
@@ -28,13 +35,21 @@ public class UsersServiceImpl implements UsersService {
   @Override
   public UserDto findByUsername(String username) {
     return this.usersRepository.findById(username)
-        .map(user -> new UserDto(user.getUsername(), user.getPassword(), user.getRoles()))
+        .map(user -> new UserDto(user.getUsername(), user.getLogin(), user.getPassword(), user.getRoles()))
         .orElseThrow(UsernameNotFoundException::new);
   }
 
   @Override
   public UsernameDto create(UserDto user) {
-    Users users = new Users(user.username(), user.password(), user.roles());
+    Users users = new Users(user.username(), user.login(), this.passwordEncoder.encode(user.password()), user.roles());
+    this.usersRepository.save(users);
+    return new UsernameDto(this.usersRepository.save(users).getUsername());
+  }
+
+  @Override
+  public UsernameDto registrationUser(RegistrationUserDto user) {
+    Users users = new Users(user.username(), user.login(), this.passwordEncoder.encode(user.password()));
+    this.usersRepository.save(users);
     return new UsernameDto(this.usersRepository.save(users).getUsername());
   }
 
@@ -42,5 +57,16 @@ public class UsersServiceImpl implements UsersService {
   public void delete(String username) {
     Users users = this.usersRepository.findById(username).orElseThrow(UsernameNotFoundException::new);
     this.usersRepository.delete(users);
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String username) throws org.springframework.security.core.userdetails.UsernameNotFoundException {
+    UserDto userDto = findByUsername(username);
+    return User.builder()
+            .username(userDto.username())
+            //.login(userDto.login())
+            .password(userDto.password())
+            .roles(userDto.roles().toArray(String[]::new))
+            .build();
   }
 }

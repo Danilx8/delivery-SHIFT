@@ -30,7 +30,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Validated
 @RestController
-@RequestMapping(value = "/store/", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "store", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "api.product.tag.name", description = "api.product.tag.description")
 public class ProductController {
     private final ProductServiceImpl service;
@@ -66,9 +66,21 @@ public class ProductController {
     public ResponseEntity<ProductDto> ProductByName(@PathVariable String name) { //поиск товара по имени
         ProductDto foundProduct = service.findByName(name);
         if (foundProduct == null) {
-            // throw new RuntimeException("Продукт не найден");
+            throw new RuntimeException("Продукт не найден");
         }
 
         return ResponseEntity.ok(foundProduct);
     }
+
+//    @Operation(summary = "api.product.products.summary")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200", description = "api.product.products.api-responses.200.description"),
+//            @ApiResponse(responseCode = "500", description = "api.server.error",
+//                    content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
+//    })
+//    @PostMapping("addproduct")
+//    public ResponseEntity<List<ProductDto>> addProduct(@RequestBody @Valid ProductDto product) { //все товары в каталоге
+//
+//
+//    }
 }

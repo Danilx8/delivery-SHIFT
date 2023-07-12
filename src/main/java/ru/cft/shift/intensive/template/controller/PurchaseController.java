@@ -31,7 +31,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Validated
 @RestController
-@RequestMapping(value = "/orders/", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "orders", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "api.purchase.tag.name", description = "api.purchase.tag.description")
 public class PurchaseController {
     
@@ -47,7 +47,7 @@ public class PurchaseController {
         @ApiResponse(responseCode = "500", description = "api.server.error", 
         content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
     })
-    @PutMapping
+    @PostMapping(consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> PurchaseCartProducts(@RequestBody @Valid OrderDto order) { //создание позиции на покупку
         service.PurchaseCartProducts(order);    
         return ResponseEntity.ok().build();
@@ -68,7 +68,7 @@ public class PurchaseController {
         @ApiResponse(responseCode = "200", description = "api.purchase.add-to-cart.api-responses.200.description"),
         @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
     })
-    @PutMapping("cart")
+    @PostMapping(path = "cart", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> AddPurchase(@RequestBody @Valid ProductDto product) {  //добавление товара в корзину
         return ResponseEntity.ok().build();
     }
