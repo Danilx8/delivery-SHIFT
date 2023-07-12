@@ -19,7 +19,6 @@ import jakarta.validation.Valid;
 import ru.cft.shift.intensive.template.dto.ProductDto;
 import ru.cft.shift.intensive.template.dto.PurchaseDto;
 import ru.cft.shift.intensive.template.service.impl.ProductServiceImpl;
-import ru.cft.shift.intensive.template.util.Mocks;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
