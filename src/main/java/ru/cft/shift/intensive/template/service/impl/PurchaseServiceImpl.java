@@ -60,7 +60,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public Void DeleteFromCart(String productId) {
         UUID userId = UUID.randomUUID(); //temporary
-        Purchases purchase = repository.findByUserAndProductIdPurchases(userId, productId); 
+        Purchases purchase = repository.findByUserAndKeyClassProductId(userId, productId); 
         if(purchase == null) throw new RuntimeException();
         repository.delete(purchase);
         return null;
@@ -84,7 +84,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public Void RemovePurchase(String productId) {
         UUID user = UUID.randomUUID(); //temporary
-        Purchases purchase = repository.findByUserAndProductIdPurchases(user, productId);
+        Purchases purchase = repository.findByUserAndKeyClassProductId(user, productId);
         if (purchase == null) throw new RuntimeException(); 
         if (purchase.quantity() == 1) {
             repository.delete(purchase);
@@ -99,7 +99,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public Void AddPurchase(String productId) {
         UUID user = UUID.randomUUID(); //temporary
-        Purchases purchase = repository.findByUserAndProductIdPurchases(user, productId);
+        Purchases purchase = repository.findByUserAndKeyClassProductId(user, productId);
         if (purchase == null) throw new RuntimeException();
         Purchases updatedPurchase = new Purchases(new PurchasesPrimaryKeyClass(purchase.keyClass().getId(), purchase.keyClass().getProductId()), purchase.destination(), purchase.state(), purchase.weight(), purchase.shop(), user, purchase.productName(), purchase.quantity() + 1, purchase.address(), purchase.price(), purchase.description());
         repository.save(updatedPurchase);

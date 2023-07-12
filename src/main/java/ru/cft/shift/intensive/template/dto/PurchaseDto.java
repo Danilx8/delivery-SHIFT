@@ -12,10 +12,10 @@ public class PurchaseDto {
     @NotEmpty private String shopName;
     @NotEmpty private String itemId;
     @NotEmpty private String itemName;
-    @NotEmpty @Min(value = 1) private Integer quantity;
+    @NotEmpty @Min(value = 0) private Integer quantity;
     @NotEmpty @Min(value = 1) private Float price;
-    @NotEmpty private Address customerAddress;
-    @NotEmpty @Max(value = 250) private String description;
+    private Address customerAddress;
+    @Max(value = 250) private String description;
 
     public PurchaseDto() {
     }

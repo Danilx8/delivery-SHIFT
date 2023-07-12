@@ -15,5 +15,5 @@ import java.util.UUID;
 public interface PurchasesRepository extends CassandraRepository<Purchases, ru.cft.shift.intensive.template.repository.entity.PurchasesPrimaryKeyClass>{
     List<Purchases> findAllByUser(UUID userId);
 
-    Purchases findByUserAndProductIdPurchases(UUID userID, String productId);
+    Purchases findByUserAndKeyClassProductId(UUID userID, String productId);
 }
