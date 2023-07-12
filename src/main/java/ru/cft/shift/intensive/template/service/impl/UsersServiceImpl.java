@@ -14,6 +14,7 @@ import ru.cft.shift.intensive.template.repository.UsersRepository;
 import ru.cft.shift.intensive.template.repository.entity.Users;
 import ru.cft.shift.intensive.template.service.UsersService;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -35,7 +36,7 @@ public class UsersServiceImpl implements UsersService, UserDetailsService {
   @Override
   public UserDto findByUsername(String username) {
     return this.usersRepository.findById(username)
-        .map(user -> new UserDto(user.getUsername(), user.getLogin(), user.getPassword(), user.getRoles()))
+        .map(user -> new UserDto(user.getUsername(), user.getLogin(), user.getPassword(), user.getRoles().toArray(String[]::new)))
         .orElseThrow(UsernameNotFoundException::new);
   }
 
@@ -46,12 +47,12 @@ public class UsersServiceImpl implements UsersService, UserDetailsService {
     return new UsernameDto(this.usersRepository.save(users).getUsername());
   }
 
-  @Override
-  public UsernameDto registrationUser(RegistrationUserDto user) {
-    Users users = new Users(user.username(), user.login(), this.passwordEncoder.encode(user.password()));
-    this.usersRepository.save(users);
-    return new UsernameDto(this.usersRepository.save(users).getUsername());
-  }
+//  @Override
+//  public UsernameDto registrationUser(RegistrationUserDto user) {
+//    Users users = new Users(user.username(), user.login(), this.passwordEncoder.encode(user.password()));
+//    this.usersRepository.save(users);
+//    return new UsernameDto(this.usersRepository.save(users).getUsername());
+//  }
 
   @Override
   public void delete(String username) {
@@ -66,7 +67,7 @@ public class UsersServiceImpl implements UsersService, UserDetailsService {
             .username(userDto.username())
             //.login(userDto.login())
             .password(userDto.password())
-            .roles(userDto.roles().toArray(String[]::new))
+            .roles(userDto.roles())
             .build();
   }
 }

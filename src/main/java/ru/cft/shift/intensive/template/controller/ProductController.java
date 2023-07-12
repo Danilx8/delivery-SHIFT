@@ -19,7 +19,6 @@ import jakarta.validation.Valid;
 import ru.cft.shift.intensive.template.dto.ProductDto;
 import ru.cft.shift.intensive.template.dto.PurchaseDto;
 import ru.cft.shift.intensive.template.service.impl.ProductServiceImpl;
-import ru.cft.shift.intensive.template.util.Mocks;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -47,12 +46,7 @@ public class ProductController {
     })
     @GetMapping
     public ResponseEntity<List<ProductDto>> AllProducts() { //все товары в каталоге
-        List<ProductDto> catalogue = service.all();
-        if (catalogue.isEmpty()) {
-            // throw new RuntimeException("Каталог пуст, милорд");
-        }
-
-        return ResponseEntity.ok(catalogue);
+        return ResponseEntity.ok(service.all());
     }
 
     @Operation(summary = "api.product.get-by-name.summary")
@@ -66,10 +60,11 @@ public class ProductController {
     public ResponseEntity<ProductDto> ProductByName(@PathVariable String name) { //поиск товара по имени
         ProductDto foundProduct = service.findByName(name);
         if (foundProduct == null) {
-            throw new RuntimeException("Продукт не найден");
+            // throw new RuntimeException("Продукт не найден");
         }
 
         return ResponseEntity.ok(foundProduct);
+
     }
 
 //    @Operation(summary = "api.product.products.summary")

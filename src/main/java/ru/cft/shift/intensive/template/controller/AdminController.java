@@ -60,10 +60,10 @@ public class AdminController {
 //          @ApiResponse(responseCode = "500", description = "api.cookbook.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
 //  })
 //  @PostMapping("newproduct")
-//  public ResponseEntity<ProductDto> createProduct(@RequestBody @Valid ProductDto product) {
+//  public ResponseEntity<ProductDto> add(@RequestBody @Valid ProductDto product) {
 //    return ResponseEntity.ok(this.usersService.create(product));
 //  }
-//
+
 //  @Operation(summary = "api.admin.create.operation.summary")
 //  @ApiResponses(value = {
 //          @ApiResponse(responseCode = "200", description = "api.admin.create.api-responses.200.description"),

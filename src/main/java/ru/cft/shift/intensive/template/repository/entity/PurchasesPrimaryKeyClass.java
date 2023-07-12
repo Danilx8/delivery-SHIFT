@@ -1,6 +1,7 @@
 package ru.cft.shift.intensive.template.repository.entity;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyClass;
@@ -8,25 +9,25 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 
 @PrimaryKeyClass
 public class PurchasesPrimaryKeyClass implements Serializable{
-    @PrimaryKeyColumn(name = "id_order", type = PrimaryKeyType.PARTITIONED)
-    private String id;
+    @PrimaryKeyColumn(name = "order_id", type = PrimaryKeyType.PARTITIONED)
+    private UUID id;
     
-    @PrimaryKeyColumn(name = "id_product", type = PrimaryKeyType.PARTITIONED)
+    @PrimaryKeyColumn(name = "product_id", type = PrimaryKeyType.PARTITIONED)
     private String productId;    
 
     public PurchasesPrimaryKeyClass() {
     }
 
-    public PurchasesPrimaryKeyClass(String id, String productId) {
+    public PurchasesPrimaryKeyClass(UUID id, String productId) {
         this.id = id;
         this.productId = productId;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

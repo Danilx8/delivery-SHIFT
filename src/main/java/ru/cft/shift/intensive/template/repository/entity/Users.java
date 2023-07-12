@@ -4,6 +4,7 @@ import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,17 +22,13 @@ public class Users {
   public Users() {
   }
 
-  public Users(String username, String login, String password, Set<String> roles) {
+  public Users(String username, String login, String password, String... roles) {
     this.username = username;
     this.login = login;
     this.password = password;
-    this.roles = roles;
-  }
-
-  public Users(String username, String login, String password) {
-    this.username = username;
-    this.login = login;
-    this.password = password;
+    if (roles != null) {
+      Arrays.stream(roles).forEach(role -> this.roles.add(role));
+    }
   }
 
   public String getUsername() {

@@ -16,9 +16,8 @@ import jakarta.validation.Valid;
 import ru.cft.shift.intensive.template.dto.OrderDto;
 import ru.cft.shift.intensive.template.dto.ProductDto;
 import ru.cft.shift.intensive.template.dto.PurchaseDto;
-import ru.cft.shift.intensive.template.service.PurchaseService;
 import ru.cft.shift.intensive.template.service.impl.PurchaseServiceImpl;
-import ru.cft.shift.intensive.template.util.Mocks;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -31,7 +30,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Validated
 @RestController
-@RequestMapping(value = "orders", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/store/", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "api.purchase.tag.name", description = "api.purchase.tag.description")
 public class PurchaseController {
     
@@ -47,7 +46,7 @@ public class PurchaseController {
         @ApiResponse(responseCode = "500", description = "api.server.error", 
         content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
     })
-    @PostMapping(consumes = APPLICATION_JSON_VALUE)
+    @PostMapping("cart/purchase")
     public ResponseEntity<Void> PurchaseCartProducts(@RequestBody @Valid OrderDto order) { //создание позиции на покупку
         service.PurchaseCartProducts(order);    
         return ResponseEntity.ok().build();
@@ -60,7 +59,7 @@ public class PurchaseController {
     })
     @GetMapping("cart")
     public ResponseEntity<List<PurchaseDto>> AllPurchases() { //получение всех заказов в корзине
-        return ResponseEntity.ok(Mocks.AllPurchases());
+        return ResponseEntity.ok(service.ListAllPurchases());
     }
 
     @Operation(summary = "api.purchase.add-to-cart.summary")
@@ -68,8 +67,9 @@ public class PurchaseController {
         @ApiResponse(responseCode = "200", description = "api.purchase.add-to-cart.api-responses.200.description"),
         @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
     })
-    @PostMapping(path = "cart", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> AddPurchase(@RequestBody @Valid ProductDto product) {  //добавление товара в корзину
+    @PostMapping("cart")
+    public ResponseEntity<Void> PutInCart(@RequestBody @Valid ProductDto product) {  //добавление товара в корзину
+        service.AddToCart(product);
         return ResponseEntity.ok().build();
     }
 
@@ -79,7 +79,8 @@ public class PurchaseController {
         @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
     })
     @DeleteMapping("cart/{id}") 
-    public ResponseEntity<Void> DeleteProduct(@PathVariable String id) { //удаление товара из каталога
+    public ResponseEntity<Void> DeleteProduct(@PathVariable String productId) { //удаление товара из каталога
+        service.DeleteFromCart(productId);
         return ResponseEntity.ok().build();
     }
 
@@ -90,7 +91,7 @@ public class PurchaseController {
     })
     @GetMapping("cart/total_cost")
     public ResponseEntity<Float> TotalCost() { //итоговая цена
-        return ResponseEntity.ok(Mocks.Cost());
+        return ResponseEntity.ok(service.CalculateTotalCost());
     }
 
     @Operation(summary = "api.purchase.get-time.summary")
@@ -100,6 +101,28 @@ public class PurchaseController {
     })
     @GetMapping("cart/time")
     public ResponseEntity<Integer> Time() { //получение времени доставки
-        return ResponseEntity.ok(Mocks.Time());
+        return ResponseEntity.ok(service.CalculateDeliveryTime());
+    }
+
+    @Operation(summary = "api.purchase.add-product.summary")
+    @PutMapping("cart/{id}/add")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "api.purchase.add-product.api-responses.200.description"),
+        @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
+    })
+    public ResponseEntity<Void> AddPurchase(@RequestBody String productId) { //увеличение количества товара в корзине на 1
+        service.AddPurchase(productId);
+        return null;
+    }
+
+    @Operation(summary = "api.purchase.remove-product.summary")
+    @PutMapping("cart/{id}/remove")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "api.purchase.remove-product.api-responses.200.description"),
+        @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
+    })
+    public ResponseEntity<Void> RemovePurchase(@RequestBody String productId) { //уменьшение количества товара в корзине на 1
+        service.RemovePurchase(productId);
+        return null;
     }
 }

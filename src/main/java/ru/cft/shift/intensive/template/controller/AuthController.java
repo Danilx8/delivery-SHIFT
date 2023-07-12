@@ -31,8 +31,8 @@ public class AuthController {
 
 
   @PostMapping("registration")
-  public ResponseEntity<UsernameDto> createUser(@RequestBody @Valid RegistrationUserDto newUser) {
-    return ResponseEntity.ok(this.usersService.registrationUser(newUser));
+  public ResponseEntity<UsernameDto> createUser(@RequestBody @Valid UserDto newUser) {
+    return ResponseEntity.ok(this.usersService.create(newUser));
   }
 
   @Operation(summary = "api.admin.delete.operation.summary")

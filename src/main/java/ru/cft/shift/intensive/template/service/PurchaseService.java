@@ -8,19 +8,19 @@ import ru.cft.shift.intensive.template.dto.PurchaseDto;
 import ru.cft.shift.intensive.template.repository.entity.PurchasesPrimaryKeyClass;
 
 public interface PurchaseService {
-    Void PurchaseCartProducts(OrderDto order);
+    List<String> PurchaseCartProducts(OrderDto order);
     
     List<PurchaseDto> ListAllPurchases();
 
     Void AddToCart(ProductDto product);
 
-    Void RemovePurchase(PurchasesPrimaryKeyClass purchaseId);
+    Void RemovePurchase(String purchaseId);
 
-    Void AddPurchase(PurchasesPrimaryKeyClass purchaseId);
+    Void AddPurchase(String purchaseId);
 
-    Void DeleteFromCart(PurchasesPrimaryKeyClass purchaseId);
+    Void DeleteFromCart(String purchaseId);
 
     Float CalculateTotalCost();
 
-    Float CalculateDeliveryTime();
+    Integer CalculateDeliveryTime();
 }

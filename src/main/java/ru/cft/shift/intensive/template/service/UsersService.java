@@ -13,7 +13,7 @@ public interface UsersService {
 
   UsernameDto create(UserDto user);
 
-  UsernameDto registrationUser(RegistrationUserDto user);
+  //UsernameDto registrationUser(RegistrationUserDto user);
 
   void delete(String username);
 }

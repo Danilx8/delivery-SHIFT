@@ -5,18 +5,18 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 public class ProductDto {
-    @NotEmpty(message =" {validation.delivery.id.not-empty}") private String id;
-    @NotEmpty(message = "{validation.delivery.name.not-empty}") private String name;
-    @NotEmpty(message = "{validation.delivery.owner.not-empty}") private String shopName;
-    @NotEmpty(message = "{validation.delivery.address.not-empty}") private Address address;
-    @Min(value =  1, message = "{validation.delivery.cost.positive}") private Float price;
-    @Min(value =  1, message = "{validation.delivery.cost.positive}") private Float weight;
+    @NotEmpty(message = "validation.delivery.id.not-empty") private String id;
+    @NotEmpty(message = "validation.delivery.name.not-empty") private String name;
+    @NotEmpty(message = "validation.delivery.owner.not-empty") private String shopName;
+    @NotEmpty(message = "validation.delivery.address.not-empty") private Address address;
+    @Min(value =  1, message = "validation.delivery.cost.positive") private Float price;
+    @Min(value =  1, message = "validation.delivery.cost.positive") private Integer weight;
     @Size(max = 280) private String description;
     
     public ProductDto() {
     }
 
-    public ProductDto(String id, String name, String shopName, String address, Float price, Float weight, String description) throws RuntimeException {
+    public ProductDto(String id, String name, String shopName, String address, Float price, Integer weight, String description) throws RuntimeException {
         Boolean isInputValid = false;
         for (Address district: Address.values()) {
             if (district.toString().equalsIgnoreCase(address)) {
@@ -75,11 +75,11 @@ public class ProductDto {
         this.price = price;
     }
 
-    public Float getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(Float weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 

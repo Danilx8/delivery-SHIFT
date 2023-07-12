@@ -15,10 +15,12 @@ public class SecurityCustomConfiguration {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests((requests) -> requests
-        .requestMatchers("/store/**").permitAll()
+        .requestMatchers("store").permitAll()
+            .requestMatchers("/store/**").permitAll()
+            .requestMatchers("auth").permitAll()
             .requestMatchers("/auth/**").permitAll()
             .requestMatchers("/orders/**").hasAnyRole("ADMIN", "USER")
-        .requestMatchers("/admin/**").hasRole("ADMIN")
+            .requestMatchers("/admin/**").hasRole("ADMIN")
         .requestMatchers("/actuator/**").permitAll()
         .anyRequest().authenticated()
     );

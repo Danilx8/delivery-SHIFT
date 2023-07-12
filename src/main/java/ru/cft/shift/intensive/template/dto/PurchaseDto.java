@@ -8,19 +8,19 @@ public class PurchaseDto {
     @NotEmpty private String orderId;
     @NotEmpty private Address shopAddress;
     @NotEmpty private PurchaseState state;
-    @NotEmpty @Min(value = 1) private Float weight;
+    @NotEmpty @Min(value = 1) private Integer weight;
     @NotEmpty private String shopName;
     @NotEmpty private String itemId;
     @NotEmpty private String itemName;
-    @NotEmpty @Min(value = 1) private Integer quantity;
+    @NotEmpty @Min(value = 0) private Integer quantity;
     @NotEmpty @Min(value = 1) private Float price;
-    @NotEmpty private Address customerAddress;
-    @NotEmpty @Max(value = 250) private String description;
+    private Address customerAddress;
+    @Max(value = 250) private String description;
 
     public PurchaseDto() {
     }
 
-    public PurchaseDto(String orderId, String shopAddress, String state, Float weight, String shopName, 
+    public PurchaseDto(String orderId, String shopAddress, String state, Integer weight, String shopName, 
     String itemId, String itemName, Integer quantity, Float cost, String customerAddress, String description) throws RuntimeException {
         Boolean isInputValid = true;
         for (Address district: Address.values()) {
@@ -83,11 +83,11 @@ public class PurchaseDto {
         this.state = state;
     }
 
-    public Float getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(Float weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
