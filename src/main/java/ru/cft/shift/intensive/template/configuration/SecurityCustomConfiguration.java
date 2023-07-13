@@ -21,9 +21,12 @@ public class SecurityCustomConfiguration {
             .requestMatchers("/auth/**").permitAll()
             .requestMatchers("/orders/**").hasAnyRole("ADMIN", "USER")
             .requestMatchers("/admin/**").hasRole("ADMIN")
-        .requestMatchers("/actuator/**").permitAll()
-        .anyRequest().authenticated()
-    );
+        .requestMatchers("/actuator/**").permitAll())
+            .formLogin((form) -> form
+                    .loginPage("/auth")
+                    .permitAll()
+            )
+            .logout((logout) -> logout.permitAll());
     http.cors(configurer -> configurer.configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()));
     http.csrf(AbstractHttpConfigurer::disable);
     http.apply(new CustomConfigurer<>());
@@ -31,5 +34,17 @@ public class SecurityCustomConfiguration {
     //http.httpBasic(Customizer.withDefaults());
     http.apply(new CustomConfigurer<>());
     return http.build();
+//    http
+//            .authorizeHttpRequests((requests) -> requests
+//                    .requestMatchers("/", "/store").permitAll()
+//                    .anyRequest().authenticated()
+//            )
+//            .formLogin((form) -> form
+//                    .loginPage("/login")
+//                    .permitAll()
+//            )
+//            .logout((logout) -> logout.permitAll());
+//
+//    return http.build();
   }
 }
