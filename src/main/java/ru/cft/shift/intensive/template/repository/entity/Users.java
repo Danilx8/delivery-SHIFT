@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Table("users")
 public class Users {
-  @PrimaryKey
+  @PrimaryKey ("full_name")
   private String username;
   @Column
   private String login;

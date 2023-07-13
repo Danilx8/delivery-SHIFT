@@ -11,7 +11,7 @@ public interface UsersService {
 
   UserDto findByUsername(String username);
 
-  UsernameDto create(UserDto user);
+  String create(UserDto user);
 
   //UsernameDto registrationUser(RegistrationUserDto user);
 

@@ -15,6 +15,7 @@ import ru.cft.shift.intensive.template.dto.RegistrationUserDto;
 import ru.cft.shift.intensive.template.dto.UserDto;
 import ru.cft.shift.intensive.template.dto.UsernameDto;
 import ru.cft.shift.intensive.template.service.UsersService;
+import ru.cft.shift.intensive.template.service.impl.UsersServiceImpl;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -22,16 +23,16 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping("auth")
 public class AuthController {
 
-  private final UsersService usersService;
+  private final UsersServiceImpl usersService;
 
   @Autowired
-  public AuthController(UsersService usersService) {
+  public AuthController(UsersServiceImpl usersService) {
     this.usersService = usersService;
   }
 
 
   @PostMapping("registration")
-  public ResponseEntity<UsernameDto> createUser(@RequestBody @Valid UserDto newUser) {
+  public ResponseEntity<String> createUser(@RequestBody @Valid UserDto newUser) {
     return ResponseEntity.ok(this.usersService.create(newUser));
   }
 

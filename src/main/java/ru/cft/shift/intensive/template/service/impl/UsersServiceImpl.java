@@ -41,10 +41,10 @@ public class UsersServiceImpl implements UsersService, UserDetailsService {
   }
 
   @Override
-  public UsernameDto create(UserDto user) {
+  public String create(UserDto user) {
     Users users = new Users(user.username(), user.login(), this.passwordEncoder.encode(user.password()), user.roles());
     this.usersRepository.save(users);
-    return new UsernameDto(this.usersRepository.save(users).getUsername());
+    return users.getLogin();
   }
 
 //  @Override

@@ -3,6 +3,7 @@ package ru.cft.shift.intensive.template.service.impl;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import ru.cft.shift.intensive.template.dto.Address;

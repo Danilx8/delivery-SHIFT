@@ -49,7 +49,7 @@ public class UserController {
       @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
   })
   @PostMapping()
-  public ResponseEntity<UsernameDto> createUser(@RequestBody @Valid UserDto user) {
+  public ResponseEntity<String> createUser(@RequestBody @Valid UserDto user) {
     return ResponseEntity.ok(this.usersService.create(user));
   }
 
