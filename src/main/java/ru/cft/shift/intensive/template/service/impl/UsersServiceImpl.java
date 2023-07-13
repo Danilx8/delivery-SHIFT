@@ -63,7 +63,7 @@ public class UsersServiceImpl implements UsersService, UserDetailsService {
   public UserDetails loadUserByUsername(String username) throws org.springframework.security.core.userdetails.UsernameNotFoundException {
     UserDto userDto = findByUsername(username);
     return User.builder()
-            .username(userDto.username())
+            .username(userDto.login())
             //.login(userDto.login())
             .password(userDto.password())
             .roles(userDto.roles())

@@ -10,10 +10,10 @@ import java.util.Set;
 
 @Table("users")
 public class Users {
-  @PrimaryKey ("full_name")
-  private String username;
-  @Column
+  @PrimaryKey
   private String login;
+  @Column("full_name")
+  private String username;
   @Column
   private String password;
   @Column

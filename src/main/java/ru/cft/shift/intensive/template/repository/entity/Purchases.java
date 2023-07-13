@@ -19,7 +19,7 @@ public record Purchases(
     @Column("shop_name")
     String shop,
     @Column("user_id")
-    UUID user,
+    String user,
     @Column("product_name")
     String productName,
     @Column
