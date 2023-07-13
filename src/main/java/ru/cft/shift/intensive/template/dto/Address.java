@@ -1,6 +1,9 @@
 package ru.cft.shift.intensive.template.dto;
 
+import java.io.Serializable;
+
 public enum Address {
+    NONE,
     DZERZHYNSKY,
     ZHELEZNODOROZHNY,
     ZAELTSOVSKY,
@@ -10,5 +13,13 @@ public enum Address {
     OKTYABRSKY,
     PERVOMAISKY,
     SOVETSKY,
-    TSENTRALNY
+    TSENTRALNY;
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return super.toString();
+    }
+
+    
 }

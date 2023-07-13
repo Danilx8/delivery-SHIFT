@@ -53,7 +53,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public Void AddToCart(ProductDto product) {
-        repository.save(BuildPurchaseEntity(product, null, PurchaseState.VACANT, 1, product.getAddress()));
+        repository.save(BuildPurchaseEntity(product, Address.NONE, PurchaseState.VACANT, 1, product.getAddress()));
         return null;
     }
 

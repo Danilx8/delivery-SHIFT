@@ -6,8 +6,8 @@ import jakarta.validation.constraints.Max;
 
 public class PurchaseDto {
     @NotEmpty private String orderId;
-    @NotEmpty private Address shopAddress;
-    @NotEmpty private PurchaseState state;
+    private Address shopAddress;
+    private PurchaseState state;
     @NotEmpty @Min(value = 1) private Integer weight;
     @NotEmpty private String shopName;
     @NotEmpty private String itemId;

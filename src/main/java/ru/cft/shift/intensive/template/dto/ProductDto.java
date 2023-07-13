@@ -5,10 +5,10 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 public class ProductDto {
-    @NotEmpty(message = "validation.delivery.id.not-empty") private String id;
+    private String id;
     @NotEmpty(message = "validation.delivery.name.not-empty") private String name;
     @NotEmpty(message = "validation.delivery.owner.not-empty") private String shopName;
-    @NotEmpty(message = "validation.delivery.address.not-empty") private Address address;
+    private Address address;
     @Min(value =  1, message = "validation.delivery.cost.positive") private Float price;
     @Min(value =  1, message = "validation.delivery.cost.positive") private Integer weight;
     @Size(max = 280) private String description;
