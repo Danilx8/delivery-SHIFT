@@ -112,7 +112,7 @@ public class PurchaseController {
     })
     public ResponseEntity<Void> AddPurchase(@RequestBody String productId) { //увеличение количества товара в корзине на 1
         service.AddPurchase(productId);
-        return null;
+        return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "api.purchase.remove-product.summary")
@@ -123,6 +123,6 @@ public class PurchaseController {
     })
     public ResponseEntity<Void> RemovePurchase(@RequestBody String productId) { //уменьшение количества товара в корзине на 1
         service.RemovePurchase(productId);
-        return null;
+        return ResponseEntity.ok().build();
     }
 }

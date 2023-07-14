@@ -20,14 +20,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDto> all() {
         return repository.findAll().stream()
-            .map(product -> new ProductDto(product.id().toString(), product.name(), product.shop(), product.address(), product.price(), product.weight(), product.description())).toList();
+            .map(product -> new ProductDto(product.getId().toString(), product.getName(), product.getShop(), product.getAddress(), product.getPrice(), product.getWeight(), product.getDescription())).toList();
     }
 
     @Override
     public ProductDto findByName(String name) {
         Products product = repository.findByName(name);
         if (product == null) throw new RuntimeException();
-        return new ProductDto(product.id().toString(), product.name(), product.shop(), product.address(), product.price(), product.weight(), product.description());
+        return new ProductDto(product.getId().toString(), product.getName(), product.getShop(), product.getAddress(), product.getPrice(), product.getWeight(), product.getDescription());
     }
 
     @Override

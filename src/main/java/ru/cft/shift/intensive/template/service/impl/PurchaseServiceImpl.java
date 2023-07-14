@@ -47,8 +47,8 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public List<PurchaseDto> ListAllPurchases() {
         String user = SecurityContextHolder.getContext().getAuthentication().getName();
-        return repository.findAllByUser(user).stream().map(
-            purchase -> new PurchaseDto(purchase.keyClass().getId().toString(), purchase.address(), purchase.state().toString(), purchase.weight(), purchase.shop(), purchase.keyClass().getProductId(), purchase.productName(), purchase.quantity(), purchase.price(), purchase.destination(), purchase.description())
+        return repository.findAllByUserId(user).stream().map(
+            purchase -> new PurchaseDto(purchase.getKeyClass().getId().toString(), purchase.getAddress(), purchase.getState().toString(), purchase.getWeight(), purchase.getShop(), purchase.getKeyClass().getProductId(), purchase.getProductName(), purchase.getQuantity(), purchase.getPrice(), purchase.getDestination(), purchase.getDescription())
         ).toList();
     }
 
@@ -87,10 +87,10 @@ public class PurchaseServiceImpl implements PurchaseService {
         String user = SecurityContextHolder.getContext().getAuthentication().getName();
         Purchases purchase = repository.findByUserAndKeyClassProductId(user, productId);
         if (purchase == null) throw new RuntimeException(); 
-        if (purchase.quantity() == 1) {
+        if (purchase.getQuantity() == 1) {
             repository.delete(purchase);
         } else {
-            Purchases updatedPurchase = new Purchases(new PurchasesPrimaryKeyClass(purchase.keyClass().getId(), purchase.keyClass().getProductId()), purchase.destination(), purchase.state(), purchase.weight(), purchase.shop(), user, purchase.productName(), purchase.quantity() - 1, purchase.address(), purchase.price(), purchase.description());
+            Purchases updatedPurchase = new Purchases(new PurchasesPrimaryKeyClass(purchase.getKeyClass().getId(), purchase.getKeyClass().getProductId()), purchase.getDestination(), purchase.getState(), purchase.getWeight(), purchase.getShop(), user, purchase.getProductName(), purchase.getQuantity() - 1, purchase.getAddress(), purchase.getPrice(), purchase.getDescription());
             repository.save(updatedPurchase);
         }
 
@@ -102,7 +102,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         String user = SecurityContextHolder.getContext().getAuthentication().getName();
         Purchases purchase = repository.findByUserAndKeyClassProductId(user, productId);
         if (purchase == null) throw new RuntimeException();
-        Purchases updatedPurchase = new Purchases(new PurchasesPrimaryKeyClass(purchase.keyClass().getId(), purchase.keyClass().getProductId()), purchase.destination(), purchase.state(), purchase.weight(), purchase.shop(), user, purchase.productName(), purchase.quantity() + 1, purchase.address(), purchase.price(), purchase.description());
+        Purchases updatedPurchase = new Purchases(new PurchasesPrimaryKeyClass(purchase.getKeyClass().getId(), purchase.getKeyClass().getProductId()), purchase.getDestination(), purchase.getState(), purchase.getWeight(), purchase.getShop(), user, purchase.getProductName(), purchase.getQuantity() + 1, purchase.getAddress(), purchase.getPrice(), purchase.getDescription());
         repository.save(updatedPurchase);
         
         return null;

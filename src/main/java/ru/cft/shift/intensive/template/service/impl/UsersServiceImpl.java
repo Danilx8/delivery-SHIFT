@@ -36,15 +36,15 @@ public class UsersServiceImpl implements UsersService, UserDetailsService {
   @Override
   public UserDto findByUsername(String username) {
     return this.usersRepository.findById(username)
-        .map(user -> new UserDto(user.getUsername(), user.getLogin(), user.getPassword(), user.getRoles().toArray(String[]::new)))
+        .map(user -> new UserDto(user.getUsername(), user.getFullName(), user.getPassword(), user.getRoles().toArray(String[]::new)))
         .orElseThrow(UsernameNotFoundException::new);
   }
 
   @Override
   public String create(UserDto user) {
-    Users users = new Users(user.username(), user.login(), this.passwordEncoder.encode(user.password()), user.roles());
+    Users users = new Users(user.username(), user.fullName(), this.passwordEncoder.encode(user.password()), user.roles());
     this.usersRepository.save(users);
-    return users.getLogin();
+    return users.getFullName();
   }
 
 //  @Override
@@ -63,7 +63,7 @@ public class UsersServiceImpl implements UsersService, UserDetailsService {
   public UserDetails loadUserByUsername(String username) throws org.springframework.security.core.userdetails.UsernameNotFoundException {
     UserDto userDto = findByUsername(username);
     return User.builder()
-            .username(userDto.login())
+            .username(userDto.username())
             //.login(userDto.login())
             .password(userDto.password())
             .roles(userDto.roles())

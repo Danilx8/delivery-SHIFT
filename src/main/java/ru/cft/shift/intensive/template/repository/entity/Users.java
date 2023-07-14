@@ -5,15 +5,16 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 @Table("users")
 public class Users {
   @PrimaryKey
-  private String login;
-  @Column("full_name")
   private String username;
+  @Column("full_name")
+  private String fullName;
   @Column
   private String password;
   @Column
@@ -24,7 +25,7 @@ public class Users {
 
   public Users(String username, String login, String password, String... roles) {
     this.username = username;
-    this.login = login;
+    this.fullName = login;
     this.password = password;
     if (roles != null) {
       Arrays.stream(roles).forEach(role -> this.roles.add(role));
@@ -48,15 +49,16 @@ public class Users {
   }
 
   public Set<String> getRoles() {
+    // if (roles == null) return Collections.<String>emptySet();
     return roles;
   }
 
-  public String getLogin() {
-    return login;
+  public String getFullName() {
+    return fullName;
   }
 
-  public void setLogin(String login) {
-    this.login = login;
+  public void setFullName(String login) {
+    this.fullName = login;
   }
 
   public void setRoles(Set<String> roles) {
